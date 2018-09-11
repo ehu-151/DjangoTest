@@ -2,7 +2,6 @@ from django.db import models
 
 
 class Person(models.Model):
-
     MAN = 0
     WOMAN = 1
 
@@ -36,7 +35,6 @@ class Person(models.Model):
 
 
 class Manager(models.Model):
-
     # 部署の定数
     DEP_ACCOUNTING = 0  # 経理
     DEP_SALES = 5  # 営業
@@ -51,7 +49,7 @@ class Manager(models.Model):
     DEP_IS = 50  # 情報システム
 
     # 人
-    person = models.ForeignKey('Person')
+    person = models.ForeignKey('Person', on_delete=models.CASCADE)
     # 部署
     department = models.IntegerField()
     # 着任時期
@@ -61,12 +59,11 @@ class Manager(models.Model):
 
 
 class Worker(models.Model):
-
     # 人
-    person = models.ForeignKey('Person')
+    person = models.ForeignKey('Person', on_delete=models.CASCADE)
     # 着任時期
     joined_at = models.DateTimeField()
     # やめた時期
     quited_at = models.DateTimeField(null=True, blank=True)
     # 担当上司
-    manager = models.ForeignKey('Manager')
+    manager = models.ForeignKey('Manager', on_delete=models.CASCADE)
